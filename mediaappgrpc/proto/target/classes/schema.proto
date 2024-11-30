@@ -1,0 +1,39 @@
+syntax ="proto3";
+package org.xproce.lab;
+option java_multiple_files = true;
+
+message VideoIdRequest{
+  string id = 1;
+}
+
+message Video{
+  string id = 1;
+  Creator creator =2;
+}
+
+message UploadVideoRequest{
+  string title = 1;
+  Creator creator = 2;
+}
+
+message Creator{
+  string name = 1;
+}
+
+message CreatorIdRequest{
+  string id = 1;
+}
+
+message VideoStream{
+  repeated Video videos =1;
+}
+
+service CreatorService{
+  rpc getCreator (CreatorIdRequest) returns(Creator);
+  rpc getCreatorVideos(CreatorIdRequest) returns(VideoStream);
+}
+
+service VideoService{
+  rpc uploadVideo (UploadVideoRequest) returns (Video);
+  rpc getVideo(VideoIdRequest) returns(Video);
+}
